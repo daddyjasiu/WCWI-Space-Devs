@@ -20,6 +20,7 @@ class ArticleDetailsScreen extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 14.0),
             child: IconButton(
               icon: const Icon(Icons.favorite_outline),
+              //TODO implement adding articles to favourite
               onPressed: () {},
             ),
           )

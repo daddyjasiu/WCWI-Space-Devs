@@ -19,6 +19,7 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
     futureArticles = getArticles();
   }
 
+  //TODO fix body mapping in model, Article.fromJson does not return any value for some reason
   static Future<List<Article>> getArticles() async {
     // const articlesUrl = "https://api.spaceflightnewsapi.net/v3/articles";
     // final response = await http.get(Uri.parse(articlesUrl));
