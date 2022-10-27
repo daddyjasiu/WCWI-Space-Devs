@@ -21,15 +21,6 @@ class Article {
     required this.isFavourite,
   });
 
-  // static Article fromJson(json) => Article(
-  //       id: json['id'],
-  //       title: json['title'],
-  //       imageUrl: json['imageUrl'],
-  //       newsSite: json['newsSite'],
-  //       publishedAt: json['publishedAt'],
-  //       summary: json['summary'],
-  //     );
-
   factory Article.fromJson(Map<String, dynamic> json) {
     return Article(
       id: json['id'] ?? '',
