@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+
 import '../../../models/article.dart';
 import '../../article_details_screen/article_details_screen.dart';
 
@@ -19,24 +22,27 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
     futureArticles = getArticles();
   }
 
-  //TODO fix body mapping in model, Article.fromJson does not return any value for some reason
   static Future<List<Article>> getArticles() async {
-    // const articlesUrl = "https://api.spaceflightnewsapi.net/v3/articles";
-    // final response = await http.get(Uri.parse(articlesUrl));
-    //
-    // if (response.statusCode == 200) {
-    //   // If the server did return a 200 OK response,
-    //   // then parse the JSON.
-    //   final body = json.decode(response.body);
-    //
-    //   return body.map<Article>(Article.fromJson(body)).toList();
-    // } else {
-    //   // If the server did not return a 200 OK response,
-    //   // then throw an exception.
-    //   throw Exception('Failed to load album');
-    // }
+    const articlesUrl = "https://api.spaceflightnewsapi.net/v3/articles";
+    final response = await http.get(Uri.parse(articlesUrl));
 
-    return data.map<Article>(Article.fromJson).toList();
+    if (response.statusCode == 200) {
+      // If the server did return a 200 OK response,
+      // then parse the JSON.
+      final body = json.decode(response.body);
+
+      List<Article> articles = [];
+
+      for (var article in body) {
+        articles.add(Article.fromJson(article));
+      }
+
+      return articles;
+    } else {
+      // If the server did not return a 200 OK response,
+      // then throw an exception.
+      throw Exception('Failed to load album');
+    }
   }
 
   @override
@@ -64,7 +70,11 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
         final article = articles[index];
 
         return GestureDetector(
-          onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => ArticleDetailsScreen(article: article))),
+          onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) =>
+                      ArticleDetailsScreen(article: article))),
           child: Card(
             child: ListTile(
               leading: CircleAvatar(
